@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "users")
 public class User {
     @Column
     @Id
@@ -19,16 +19,19 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column
+    private Double amount;
 
     public User() {
     }
 
-    public User(Long id, String name, String cpf, String email, String password) {
+    public User(Long id, String name, String cpf, String email, String password, Double amount) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
+        this.amount = amount;
     }
 
     public Long getId() {
@@ -71,15 +74,23 @@ public class User {
         this.password = password;
     }
 
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getName(), user.getName()) && Objects.equals(getCpf(), user.getCpf()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getName(), user.getName()) && Objects.equals(getCpf(), user.getCpf()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getAmount(), user.getAmount());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getCpf(), getEmail(), getPassword());
+        return Objects.hash(getId(), getName(), getCpf(), getEmail(), getPassword(), getAmount());
     }
 }
