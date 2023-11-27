@@ -1,11 +1,21 @@
 package com.tads.picpay.entities;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "transfers")
 public class Transfer {
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private Long firstAccountId;
+    @Column(nullable = false)
     private Long secondAccountId;
+    @Column(nullable = false)
     private Double value;
 
     public Transfer() {

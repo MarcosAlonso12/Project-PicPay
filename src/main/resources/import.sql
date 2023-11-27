@@ -1,0 +1,2 @@
+insert into users (id, name, cpf, email, password, amount) values (1, 'Ana', '123.456.789-01', 'ana@example.com', 'ana123', 1000.00);
+insert into users (id, name, cpf, email, password, amount) values (2, 'Bruno', '123.456.789-02', 'bruno@example.com', 'bruno123', 1500.00);
