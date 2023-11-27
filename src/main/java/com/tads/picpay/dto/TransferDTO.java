@@ -4,60 +4,46 @@ import com.tads.picpay.entities.Transfer;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.util.Objects;
-
 public class TransferDTO {
     private long id;
     @NotNull
-    private int conta1;
+    private Long firstAccountId;
     @NotNull
-    private int conta2;
+    private Long secondAccountId;
     @NotNull
     @Positive
-    private double valor;
+    private Double value;
 
-    public TransferDTO(long id, int conta1, int conta2, double valor) {
+    public TransferDTO() {
+    }
+
+    public TransferDTO(long id, Long firstAccountId, Long secondAccountId, Double value) {
         this.id = id;
-        this.conta1 = conta1;
-        this.conta2 = conta2;
-        this.valor = valor;
+        this.firstAccountId = firstAccountId;
+        this.secondAccountId = secondAccountId;
+        this.value = value;
     }
 
     public TransferDTO(Transfer transfer) {
         this.id = transfer.getId();
-        this.conta1 = transfer.getConta1();
-        this.conta2 = transfer.getConta2();
-        this.valor = transfer.getValor();
-
+        this.firstAccountId = transfer.getFirstAccountId();
+        this.secondAccountId = transfer.getSecondAccountId();
+        this.value = transfer.getValue();
     }
 
     public long getId() {
         return id;
     }
 
-    public int getConta1() {
-        return conta1;
+    public Long getFirstAccountId() {
+        return firstAccountId;
     }
 
-
-    public int getConta2() {
-        return conta2;
+    public Long getSecondAccountId() {
+        return secondAccountId;
     }
 
-
-    public double getValor() {
-        return valor;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TransferDTO that)) return false;
-        return id == that.id && conta1 == that.conta1 && conta2 == that.conta2 && Double.compare(valor, that.valor) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, conta1, conta2, valor);
+    public Double getValue() {
+        return value;
     }
 }

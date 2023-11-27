@@ -1,32 +1,64 @@
 package com.tads.picpay.entities;
 
-public class Transfer {
-    private long id;
-    private int conta1;
-    private int conta2;
-    private Double valor;
+import java.util.Objects;
 
-    public Transfer(long id, int conta1, int conta2, Double valor) {
-        this.id = id;
-        this.conta1 = conta1;
-        this.conta2 = conta2;
-        this.valor = valor;
+public class Transfer {
+    private Long id;
+    private Long firstAccountId;
+    private Long secondAccountId;
+    private Double value;
+
+    public Transfer() {
     }
 
-    public long getId() {
+    public Transfer(Long id, Long firstAccountId, Long secondAccountId, Double value) {
+        this.id = id;
+        this.firstAccountId = firstAccountId;
+        this.secondAccountId = secondAccountId;
+        this.value = value;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public int getConta1() {
-        return conta1;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getConta2() {
-        return conta2;
+    public Long getFirstAccountId() {
+        return firstAccountId;
     }
 
-    public Double getValor() {
-        return valor;
+    public void setFirstAccountId(Long firstAccountId) {
+        this.firstAccountId = firstAccountId;
     }
 
+    public Long getSecondAccountId() {
+        return secondAccountId;
+    }
+
+    public void setSecondAccountId(Long secondAccountId) {
+        this.secondAccountId = secondAccountId;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transfer transfer)) return false;
+        return Objects.equals(getId(), transfer.getId()) && Objects.equals(getFirstAccountId(), transfer.getFirstAccountId()) && Objects.equals(getSecondAccountId(), transfer.getSecondAccountId()) && Objects.equals(getValue(), transfer.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstAccountId(), getSecondAccountId(), getValue());
+    }
 }
