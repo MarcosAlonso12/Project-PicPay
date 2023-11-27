@@ -7,20 +7,14 @@ import jakarta.validation.constraints.Positive;
 import java.util.Objects;
 
 public class TransferDTO {
-
     private long id;
-@NotNull
-@Positive
-    private  int conta1;
-@NotNull
-@Positive
+    @NotNull
+    private int conta1;
+    @NotNull
     private int conta2;
-@NotNull
-@Positive
+    @NotNull
+    @Positive
     private double valor;
-
-@NotNull
-@Positive
 
     public TransferDTO(long id, int conta1, int conta2, double valor) {
         this.id = id;
@@ -29,11 +23,11 @@ public class TransferDTO {
         this.valor = valor;
     }
 
-    public TransferDTO(Transfer transfer){
-      this.id = transfer.getId();
-      this.conta1 = transfer.getConta1();
-      this.conta2 = transfer.getConta2();
-      this.valor = transfer.getValor();
+    public TransferDTO(Transfer transfer) {
+        this.id = transfer.getId();
+        this.conta1 = transfer.getConta1();
+        this.conta2 = transfer.getConta2();
+        this.valor = transfer.getValor();
 
     }
 
