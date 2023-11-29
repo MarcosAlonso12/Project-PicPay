@@ -11,3 +11,5 @@ insert into shopkeepers (id, name, cnpj, email, password, amount) values (3, 'Me
 insert into shopkeepers (id, name, cnpj, email, password, amount) values (4, 'Banco Santos', '12.345.674/0001-00', 'b.santos@example.com', 'santos.b123', 5000000.30);
 insert into shopkeepers (id, name, cnpj, email, password, amount) values (5, 'Assistencia Souza', '12.345.675/0001-00', 's.ass@example.com', 'souza123', 30000.00);
 insert into shopkeepers (id, name, cnpj, email, password, amount) values (6, 'Borracharia Tours', '12.345.676/0001-00', 'tours@example.com', 'tours123', 1000.30);
+
+insert into transfers (id, first_account_id, second_account_id, value) values (1, 5, 3, 100.00)

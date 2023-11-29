@@ -12,19 +12,19 @@ public class Transfer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Long firstAccountId;
+    private Long payer;
     @Column(nullable = false)
-    private Long secondAccountId;
+    private Long receiver;
     @Column(nullable = false)
     private Double value;
 
     public Transfer() {
     }
 
-    public Transfer(Long id, Long firstAccountId, Long secondAccountId, Double value) {
+    public Transfer(Long id, Long payer, Long secondAccountId, Double value) {
         this.id = id;
-        this.firstAccountId = firstAccountId;
-        this.secondAccountId = secondAccountId;
+        this.payer = payer;
+        this.receiver = receiver;
         this.value = value;
     }
 
@@ -36,20 +36,20 @@ public class Transfer {
         this.id = id;
     }
 
-    public Long getFirstAccountId() {
-        return firstAccountId;
+    public Long getPayer() {
+        return payer;
     }
 
-    public void setFirstAccountId(Long firstAccountId) {
-        this.firstAccountId = firstAccountId;
+    public void setPayer(Long payer) {
+        this.payer = payer;
     }
 
-    public Long getSecondAccountId() {
-        return secondAccountId;
+    public Long getReceiver() {
+        return receiver;
     }
 
-    public void setSecondAccountId(Long secondAccountId) {
-        this.secondAccountId = secondAccountId;
+    public void setReceiver(Long receiver) {
+        this.receiver = receiver;
     }
 
     public Double getValue() {
@@ -64,11 +64,11 @@ public class Transfer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Transfer transfer)) return false;
-        return Objects.equals(getId(), transfer.getId()) && Objects.equals(getFirstAccountId(), transfer.getFirstAccountId()) && Objects.equals(getSecondAccountId(), transfer.getSecondAccountId()) && Objects.equals(getValue(), transfer.getValue());
+        return Objects.equals(getId(), transfer.getId()) && Objects.equals(getPayer(), transfer.getPayer()) && Objects.equals(getReceiver(), transfer.getReceiver()) && Objects.equals(getValue(), transfer.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstAccountId(), getSecondAccountId(), getValue());
+        return Objects.hash(getId(), getPayer(), getReceiver(), getValue());
     }
 }
