@@ -2,29 +2,35 @@ package com.tads.picpay.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "transfers")
 public class Transfer {
-    @Column
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private Long payerId;
-    @Column(nullable = false)
-    private Long receiverId;
+    @ManyToOne
+    @JoinColumn(name = "payer_id")
+    private User payer;
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
     @Column(nullable = false)
     private Double value;
 
     public Transfer() {
     }
 
-    public Transfer(Long id, Long payerId, Long receiverId, Double value) {
+    public Transfer(Long id, User payer, User receiver, Double value) {
         this.id = id;
-        this.payerId = payerId;
-        this.receiverId = receiverId;
+        this.payer = payer;
+        this.receiver = receiver;
+        this.value = value;
+    }
+
+    public Transfer(User payer, User receiver, Double value) {
+        this.payer = payer;
+        this.receiver = receiver;
         this.value = value;
     }
 
@@ -36,20 +42,20 @@ public class Transfer {
         this.id = id;
     }
 
-    public Long getPayerId() {
-        return payerId;
+    public User getPayer() {
+        return payer;
     }
 
-    public void setPayerId(Long payerId) {
-        this.payerId = payerId;
+    public void setPayer(User payer) {
+        this.payer = payer;
     }
 
-    public Long getReceiverId() {
-        return receiverId;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     public Double getValue() {
@@ -58,17 +64,5 @@ public class Transfer {
 
     public void setValue(Double value) {
         this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Transfer transfer)) return false;
-        return Objects.equals(getId(), transfer.getId()) && Objects.equals(getPayerId(), transfer.getPayerId()) && Objects.equals(getReceiverId(), transfer.getReceiverId()) && Objects.equals(getValue(), transfer.getValue());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getPayerId(), getReceiverId(), getValue());
     }
 }

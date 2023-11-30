@@ -1,37 +1,46 @@
 package com.tads.picpay.entities;
 
+import com.tads.picpay.entities.enums.Type;
 import jakarta.persistence.*;
 
-import java.util.Objects;
-
 @Entity
-@Table(name = "users")
-public class User {
-    @Column
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false, unique = true)
-    private String cpf;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false, precision = 2)
     private Double amount;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     public User() {
     }
 
-    public User(Long id, String name, String cpf, String email, String password, Double amount) {
+    public User(Long id, String name, String email, String password, Double amount, Type type) {
         this.id = id;
         this.name = name;
-        this.cpf = cpf;
         this.email = email;
         this.password = password;
         this.amount = amount;
+        this.type = type;
+    }
+
+    public User(String name, String email, String password, Double amount, Type type) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.amount = amount;
+        this.type = type;
     }
 
     public Long getId() {
@@ -48,14 +57,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -82,15 +83,11 @@ public class User {
         this.amount = amount;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getName(), user.getName()) && Objects.equals(getCpf(), user.getCpf()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getAmount(), user.getAmount());
+    public Type getType() {
+        return type;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getCpf(), getEmail(), getPassword(), getAmount());
+    public void setType(Type type) {
+        this.type = type;
     }
 }

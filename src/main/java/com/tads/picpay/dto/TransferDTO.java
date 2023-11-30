@@ -5,10 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class TransferDTO {
-    private long id;
-    @NotNull
+    private Long id;
     private Long payerId;
-    @NotNull
     private Long receiverId;
     @NotNull
     @Positive
@@ -17,7 +15,7 @@ public class TransferDTO {
     public TransferDTO() {
     }
 
-    public TransferDTO(long id, Long payerId, Long receiverId, Double value) {
+    public TransferDTO(Long id, Long payerId, Long receiverId, Double value) {
         this.id = id;
         this.payerId = payerId;
         this.receiverId = receiverId;
@@ -26,12 +24,12 @@ public class TransferDTO {
 
     public TransferDTO(Transfer transfer) {
         this.id = transfer.getId();
-        this.payerId = transfer.getPayerId();
-        this.receiverId = transfer.getReceiverId();
+        this.payerId = transfer.getPayer().getId();
+        this.receiverId = transfer.getReceiver().getId();
         this.value = transfer.getValue();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
