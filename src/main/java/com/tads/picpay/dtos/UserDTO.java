@@ -5,6 +5,7 @@ import com.tads.picpay.entities.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 public class UserDTO {
     private Long id;
@@ -21,6 +22,7 @@ public class UserDTO {
     @NotNull
     private UserType userType;
     @NotNull
+    @Size(min = 14, max = 18)
     private String identify;
 
     public UserDTO() {
