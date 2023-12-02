@@ -32,27 +32,27 @@ public class TransferService {
 
     @Transactional
     public TransferDTO transaction(TransferDTO transferDTO) {
-
-        if(Objects.equals(transferDTO.getPayerId(), transferDTO.getReceiverId())) {
+        if (Objects.equals(transferDTO.getPayerId(), transferDTO.getReceiverId())) {
             throw new RuntimeException("Mesmo id");
         }
 
         User payer = userRepository.findById(transferDTO.getPayerId()).orElseThrow();
         User receiver = userRepository.findById(transferDTO.getReceiverId()).orElseThrow();
 
-        if(payer.getUserType() == UserType.SHOPKEEPER) {
+        if (payer.getUserType() == UserType.SHOPKEEPER) {
             throw new RuntimeException("O Pagador nao pode ser um lojista.");
         }
 
-        if(payer.getAmount() < transferDTO.getValue()) {
+        if (payer.getAmount() < transferDTO.getValue()) {
             throw new RuntimeException("O pagador não possui o valor a ser enviado.l");
         }
 
-        Transfer transfer = new Transfer(
-                payer,
-                receiver,
-                transferDTO.getValue()
-        );
+        // Consulta um serviço externo que autoriza a transação.
+        if (!AuthTransactionService.authorizeTransaction()) {
+            throw new RuntimeException("TRANSFERENCIA NAO AUTORIZADA.");
+        }
+
+        Transfer transfer = new Transfer(payer, receiver, transferDTO.getValue());
 
         Double payerNewAmount = transferDTO.getValue() - payer.getAmount();
         Double receiverNewAmount = transferDTO.getValue() + receiver.getAmount();
@@ -64,8 +64,11 @@ public class TransferService {
 
         userService.update(payerDTO.getId(), payerDTO);
         userService.update(receiverDTO.getId(), receiverDTO);
-
         transfer = transferRepository.save(transfer);
+
+        // Envia uma notificação ao cliente.
+        SendNotificationService.send();
+
         return new TransferDTO(transfer);
     }
 
