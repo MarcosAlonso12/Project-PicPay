@@ -22,14 +22,8 @@ public class TransferService {
     private TransferRepository transferRepository;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserService userService;
-
-    @Transactional(readOnly = true)
-    public Page<TransferDTO> findAll(Pageable pageable) {
-        return transferRepository.findAll(pageable).map(TransferDTO::new);
-    }
 
     @Transactional
     public TransferDTO transaction(TransferDTO transferDTO) {

@@ -17,7 +17,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
-        return new UserDTO(userRepository.findById(id).orElseThrow());
+        return new UserDTO(userRepository.findById(id).orElseThrow(() -> new DatabaseException("This user does not exists.")));
     }
 
     @Transactional(readOnly = true)
