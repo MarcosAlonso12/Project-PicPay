@@ -2,6 +2,7 @@ package com.tads.picpay.services;
 
 import com.tads.picpay.dtos.UserDTO;
 import com.tads.picpay.entities.User;
+import com.tads.picpay.exceptions.DatabaseException;
 import com.tads.picpay.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         return new UserDTO(userRepository.findById(id).orElseThrow());
@@ -25,21 +27,19 @@ public class UserService {
 
     @Transactional
     public UserDTO insert(UserDTO userDTO) {
-        User user = new User(
-                userDTO.getName(),
-                userDTO.getEmail(),
-                userDTO.getPassword(),
-                userDTO.getAmount(),
-                userDTO.getUserType(),
-                userDTO.getIdentify()
-        );
-        user = userRepository.save(user);
-        return new UserDTO(user);
+        try {
+            User user = new User(userDTO.getName(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getAmount(), userDTO.getUserType(), userDTO.getIdentify());
+            user = userRepository.save(user);
+            return new UserDTO(user);
+        } catch (Exception e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     @Transactional
     public UserDTO update(Long id, UserDTO userDTO) {
         try {
+            userRepository.getReferenceById(id);
             User user = userRepository.getReferenceById(id);
             user.setName(userDTO.getName());
             user.setEmail(userDTO.getEmail());
@@ -49,7 +49,7 @@ public class UserService {
             user.setIdentify(userDTO.getIdentify());
             return new UserDTO(user);
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new DatabaseException(e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class UserService {
         try {
             userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new DatabaseException(e.getMessage());
         }
     }
 }
