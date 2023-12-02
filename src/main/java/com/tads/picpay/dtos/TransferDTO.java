@@ -1,4 +1,4 @@
-package com.tads.picpay.dto;
+package com.tads.picpay.dtos;
 
 import com.tads.picpay.entities.Transfer;
 import jakarta.validation.constraints.NotNull;
@@ -6,7 +6,9 @@ import jakarta.validation.constraints.Positive;
 
 public class TransferDTO {
     private Long id;
+    @NotNull
     private Long payerId;
+    @NotNull
     private Long receiverId;
     @NotNull
     @Positive

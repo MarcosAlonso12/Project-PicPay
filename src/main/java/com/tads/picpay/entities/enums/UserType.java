@@ -1,5 +1,5 @@
 package com.tads.picpay.entities.enums;
 
-public enum Type {
+public enum UserType {
     COMMON, SHOPKEEPER
 }

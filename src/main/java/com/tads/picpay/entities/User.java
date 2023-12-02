@@ -1,16 +1,14 @@
 package com.tads.picpay.entities;
 
-import com.tads.picpay.entities.enums.Type;
+import com.tads.picpay.entities.enums.UserType;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User {
+@Table(name = "users")
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String name;
     @Column(nullable = false, unique = true)
@@ -19,28 +17,32 @@ public abstract class User {
     private String password;
     @Column(nullable = false, precision = 2)
     private Double amount;
-    @Column(nullable = false)
+    @Column(name = "type",nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private UserType userType;
+    @Column(nullable = false)
+    private String identify;
 
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Double amount, Type type) {
+    public User(Long id, String name, String email, String password, Double amount, UserType userType, String identify) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.amount = amount;
-        this.type = type;
+        this.userType = userType;
+        this.identify = identify;
     }
 
-    public User(String name, String email, String password, Double amount, Type type) {
+    public User(String name, String email, String password, Double amount, UserType userType, String identify) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.amount = amount;
-        this.type = type;
+        this.userType = userType;
+        this.identify = identify;
     }
 
     public Long getId() {
@@ -83,11 +85,19 @@ public abstract class User {
         this.amount = amount;
     }
 
-    public Type getType() {
-        return type;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(String identify) {
+        this.identify = identify;
     }
 }
