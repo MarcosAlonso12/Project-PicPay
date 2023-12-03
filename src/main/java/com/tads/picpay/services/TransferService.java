@@ -33,6 +33,9 @@ public class TransferService {
         if (payer.getUserType() == UserType.SHOPKEEPER) {
             throw new UnauthorizedException("A shopkeeper cannot carry out a transaction");
         }
+        if(transferDTO.getAmount() <= 0) {
+            throw new UnauthorizedException("The amount must be greater than zero.");
+        }
         if (payer.getAmount() < transferDTO.getAmount()) {
             throw new UnauthorizedException("The user does not have the required amount to make this transaction.");
         }
@@ -43,8 +46,8 @@ public class TransferService {
         }
 
         Transfer transfer = new Transfer(payer, receiver, transferDTO.getAmount());
-        Double payerNewAmount = transferDTO.getAmount() - payer.getAmount();
-        Double receiverNewAmount = transferDTO.getAmount() + receiver.getAmount();
+        Double payerNewAmount = payer.getAmount() - transfer.getAmount();
+        Double receiverNewAmount = receiver.getAmount() + transfer.getAmount();
         payer.setAmount(payerNewAmount);
         receiver.setAmount(receiverNewAmount);
 
