@@ -16,22 +16,22 @@ public class Transfer {
     @JoinColumn(name = "receiver_id")
     private User receiver;
     @Column(nullable = false)
-    private Double value;
+    private Double amount;
 
     public Transfer() {
     }
 
-    public Transfer(Long id, User payer, User receiver, Double value) {
+    public Transfer(Long id, User payer, User receiver, Double amount) {
         this.id = id;
         this.payer = payer;
         this.receiver = receiver;
-        this.value = value;
+        this.amount = amount;
     }
 
-    public Transfer(User payer, User receiver, Double value) {
+    public Transfer(User payer, User receiver, Double amount) {
         this.payer = payer;
         this.receiver = receiver;
-        this.value = value;
+        this.amount = amount;
     }
 
     public Long getId() {
@@ -58,11 +58,11 @@ public class Transfer {
         this.receiver = receiver;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setAmount(Double value) {
+        this.amount = amount;
     }
 }

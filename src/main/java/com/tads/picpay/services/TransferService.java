@@ -33,7 +33,7 @@ public class TransferService {
         if (payer.getUserType() == UserType.SHOPKEEPER) {
             throw new UnauthorizedException("A shopkeeper cannot carry out a transaction");
         }
-        if (payer.getAmount() < transferDTO.getValue()) {
+        if (payer.getAmount() < transferDTO.getAmount()) {
             throw new UnauthorizedException("The user does not have the required amount to make this transaction.");
         }
 
@@ -42,9 +42,9 @@ public class TransferService {
             throw new UnauthorizedException("The transaction is not authorized");
         }
 
-        Transfer transfer = new Transfer(payer, receiver, transferDTO.getValue());
-        Double payerNewAmount = transferDTO.getValue() - payer.getAmount();
-        Double receiverNewAmount = transferDTO.getValue() + receiver.getAmount();
+        Transfer transfer = new Transfer(payer, receiver, transferDTO.getAmount());
+        Double payerNewAmount = transferDTO.getAmount() - payer.getAmount();
+        Double receiverNewAmount = transferDTO.getAmount() + receiver.getAmount();
         payer.setAmount(payerNewAmount);
         receiver.setAmount(receiverNewAmount);
 
@@ -56,7 +56,9 @@ public class TransferService {
         transfer = transferRepository.save(transfer);
 
         // Envia uma notificação ao cliente.
-        SendNotificationService.send();
+        if(!SendNotificationService.send()) {
+            throw new UnauthorizedException("Notification not authorized");
+        }
 
         return new TransferDTO(transfer);
     }
