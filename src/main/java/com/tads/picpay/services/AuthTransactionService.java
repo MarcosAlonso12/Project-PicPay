@@ -13,7 +13,6 @@ public class AuthTransactionService {
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(MOCK_URL, String.class);
         LOGGER.info("Verificando o serviço externo para autorização.");
-        // Verificar se a resposta contém a mensagem "Autorizado"
         return response != null && response.contains("\"message\": \"Autorizado\"");
     }
 
