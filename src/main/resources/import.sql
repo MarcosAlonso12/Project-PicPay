@@ -10,7 +10,6 @@ insert into users (name, identify, email, password, type, amount) values ('Merca
 insert into users (name, identify, email, password, type, amount) values ('Banco Santos', '12.345.674/0001-00', 'b.santos@example.com', 'santos.b123', 'SHOPKEEPER', 5000000.30);
 insert into users (name, identify, email, password, type, amount) values ('Assistencia Souza', '12.345.675/0001-00', 's.ass@example.com', 'souza123', 'SHOPKEEPER', 30000.00);
 insert into users (name, identify, email, password, type, amount) values ('Borracharia Tours', '12.345.676/0001-00', 'tours@example.com', 'tours123', 'SHOPKEEPER', 1000.30);
-
 insert into transfers (payer_id, receiver_id, amount) values (2,11, 1000.00);
 insert into transfers (payer_id, receiver_id, amount) values (4,12, 2000.00);
 insert into transfers (payer_id, receiver_id, amount) values (6,7, 4000.00);
