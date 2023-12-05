@@ -1,4 +1,4 @@
-# ProjectPicPay
+# Project PicPay
 Projeto desenvolvido para um atividade na discplina de Linguagem de Programação III
 
 ## Linguagem de programação utilizada
@@ -9,7 +9,17 @@ Projeto desenvolvido para um atividade na discplina de Linguagem de Programaçã
 
 ## Documentação
 
-### Acesso a informação de um usuário por **id**
+### Tabelas
+#### Tabela **users**
+| id | name | email | password | amount | userType | identify  |
+|----|------|-------|----------|--------|----------|-----------|
+
+#### Tabela **transfers**
+| id | payer_id | receiver_id | amount | amount |
+|----|----------|-------------|--------|--------|
+
+### Endpoints
+### Acesso a informação de um usuário pelo **id**
 ```GET: {HOST}/users/id```
 ### Acesso a informação de todos os usuários
 ```GET: {HOST}/users```
@@ -35,7 +45,7 @@ OBS: Existem 2 tipos de usuários, podendo ser escolhido entre: "*COMMON*" e "*S
     "amount": 1.0
 }
 ```
-### Alteração das informações de um usuário por id
+### Alteração das informações de um usuário pelo id
 ```PUT: {HOST}/users/id```
 ```
 {
@@ -47,5 +57,5 @@ OBS: Existem 2 tipos de usuários, podendo ser escolhido entre: "*COMMON*" e "*S
     "identify": "123.456.789-00"
 }
 ```
-### Remoção de um usuário por id
+### Remoção de um usuário pelo id
 ```DELETE: {HOST}/users/id```
